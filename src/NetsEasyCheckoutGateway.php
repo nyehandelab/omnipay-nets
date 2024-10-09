@@ -84,6 +84,16 @@ class NetsEasyCheckoutGateway extends AbstractGateway
         return $this->createRequest('\Nyehandel\Omnipay\Nets\Message\NetsEasyFullChargePaymentRequest', $parameters);
     }
 
+    public function capture(array $parameters = array())
+    {
+        return $this->createRequest('\Nyehandel\Omnipay\Nets\Message\NetsEasyFullChargePaymentRequest', $parameters);
+    }
+
+    public function cancel(array $parameters = [])
+    {
+        return $this->createRequest('\Nyehandel\Omnipay\Nets\Message\NetsEasyCancelOrderRequest', $parameters);
+    }
+
     public function refund(array $parameters = array())
     {
         // TODO: Implement refund
