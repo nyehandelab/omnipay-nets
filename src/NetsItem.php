@@ -62,10 +62,15 @@ class NetsItem extends Item
         return $this->setParameter('taxRate', $value);
     }
 
+    public function setTaxAmount($value)
+    {
+        return $this->setParameter('taxAmount', $value);
+    }
+
 
     public function getTaxAmount(): int
     {
-        return (int) $this->getPrice() * $this->getTaxRate() * $this->getQuantity() / (100 * 100);
+        return $this->getParameter('taxAmount');
     }
 
     public function getNetTotalAmount(): int
