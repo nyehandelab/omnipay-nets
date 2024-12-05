@@ -12,13 +12,14 @@ class NetsEasyCreatePaymentRequest extends AbstractRequest
 {
     public function getData()
     {
-        $this->validate('items', 'currency', 'termsUrl', 'supportedCustomerTypes', 'externalShippingAddress');
+        $this->validate('items', 'currency', 'termsUrl', 'supportedCustomerTypes', 'externalShippingAddress', 'merchantHandlesConsumerData');
 
         $data = [
             'order' => $this->getOrderData(),
             'checkout' => [
                 'url' => $this->getUrl(),
                 'termsUrl' => $this->getTermsUrl(),
+                'merchantHandlesConsumerData' => $this->getMerchantHandlesConsumerData(),
                 'integrationType' => 'EmbeddedCheckout',
                 'consumerType' => $this->getCustomerTypesData(),
                 'shipping' => [
@@ -43,6 +44,16 @@ class NetsEasyCreatePaymentRequest extends AbstractRequest
     public function getTermsUrl()
     {
         return $this->getParameter('termsUrl');
+    }
+
+    public function setMerchantHandlesConsumerData($value)
+    {
+        return $this->setParameter('merchantHandlesConsumerData', $value);
+    }
+
+    public function getMerchantHandlesConsumerData()
+    {
+        return $this->getParameter('merchantHandlesConsumerData');
     }
 
     public function setUrl($value)
