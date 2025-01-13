@@ -21,6 +21,7 @@ class NetsEasyCreatePaymentRequest extends AbstractRequest
                 'url' => $this->getUrl(),
                 'termsUrl' => $this->getTermsUrl(),
                 'merchantHandlesConsumerData' => $this->getMerchantHandlesConsumerData(),
+                'consumer' => $this->getConsumer(),
                 'integrationType' => 'EmbeddedCheckout',
                 'consumerType' => $this->getCustomerTypesData(),
                 'shipping' => [
@@ -45,6 +46,16 @@ class NetsEasyCreatePaymentRequest extends AbstractRequest
     public function getTermsUrl()
     {
         return $this->getParameter('termsUrl');
+    }
+
+    public function setConsumer($value)
+    {
+        return $this->setParameter('consumer', $value);
+    }
+
+    public function getConsumer()
+    {
+        return $this->getParameter('consumer');
     }
 
     public function setMerchantHandlesConsumerData($value)
