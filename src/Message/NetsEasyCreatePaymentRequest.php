@@ -3,6 +3,7 @@
 namespace Nyehandel\Omnipay\Nets\Message;
 
 use Nyehandel\Omnipay\Nets\NetsWebhookBag;
+use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\ItemBag;
 
 /**
@@ -162,6 +163,18 @@ class NetsEasyCreatePaymentRequest extends AbstractRequest
             json_encode($data),
         );
 
+        if ($httpResponse->getStatusCode() >= 400) {
+            $errorMessage = '';
+            $errorResponseBody = $this->getResponseBody($httpResponse);
+            if (count($errorResponseBody)) {
+                $errorMessage = $errorResponseBody;
+            } else {
+                $errorMessage = 'Undefined error occurred. HTTP status code: ' . $httpResponse->getStatusCode();
+            }
+            throw new InvalidResponseException(
+                \sprintf('Reason: (%s)', json_encode($errorMessage))
+            );
+        }
         return new NetsEasyCreatePaymentResponse($this, $this->getResponseBody($httpResponse));
     }
 }
